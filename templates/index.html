@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mis Finanzas</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>💰 Gestor de Finanzas</h1>
+    <h2>Balance actual: ${{ balance }}</h2>
+
+    <form action="/agregar" method="POST">
+        <select name="tipo">
+            <option value="ingreso">Ingreso</option>
+            <option value="gasto">Gasto</option>
+        </select>
+        <input type="text" name="descripcion" placeholder="Descripción" required>
+        <input type="number" step="0.01" name="monto" placeholder="Monto" required>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <h3>Historial</h3>
+    <ul>
+        {% for m in movimientos %}
+            <li>
+                {{ m[1] }} - {{ m[2] }}: ${{ m[3] }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: auto;
+    background: #f4f6f8;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
