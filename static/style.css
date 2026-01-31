@@ -43,6 +43,13 @@ input, select, button {
     font-size: 14px;
 }
 
+select {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+
 input, select {
     flex: 1;
 }
