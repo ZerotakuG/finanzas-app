@@ -1,29 +1,81 @@
 body {
-    font-family: Arial, sans-serif;
-    max-width: 500px;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #2b2b45);
+    color: #fff;
+}
+
+.container {
+    max-width: 1000px;
     margin: auto;
-    background: #f4f6f8;
+    padding: 20px;
 }
 
 h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: #2f2f4f;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.balance {
+    font-size: 24px;
+    font-weight: bold;
     text-align: center;
 }
 
 form {
     display: flex;
-    flex-direction: column;
     gap: 10px;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+input, select, button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+}
+
+input, select {
+    flex: 1;
 }
 
 button {
-    background: #2ecc71;
+    background: #4CAF50;
     color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
 }
-canvas {
-    max-width: 100%;
-    margin-top: 20px;
+
+button:hover {
+    background: #45a049;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.ingreso {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.gasto {
+    color: #ff5252;
+    font-weight: bold;
 }

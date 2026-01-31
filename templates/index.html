@@ -5,47 +5,87 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <div class="container">
     <h1>💰 Gestor de Finanzas</h1>
-    <h2>Balance actual: ${{ balance }}</h2>
 
-    <form action="/agregar" method="POST">
-        <select name="tipo">
-            <option value="ingreso">Ingreso</option>
-            <option value="gasto">Gasto</option>
-        </select>
-        <input type="text" name="descripcion" placeholder="Descripción" required>
-        <input type="number" step="0.01" name="monto" placeholder="Monto" required>
-        <button type="submit">Agregar</button>
-    </form>
+    <div class="card">
+        <div class="balance">Balance actual: ${{ balance }}</div>
+    </div>
 
-    <h3>Historial</h3>
-    <ul>
-        {% for m in movimientos %}
+    <div class="card">
+        <form action="/agregar" method="POST">
+            <select name="tipo">
+                <option value="ingreso">Ingreso</option>
+                <option value="gasto">Gasto</option>
+            </select>
+            <input type="text" name="descripcion" placeholder="Descripción" required>
+            <input type="number" step="0.01" name="monto" placeholder="Monto" required>
+            <button type="submit">Agregar</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>📊 Distribución de Gastos</h3>
+        <canvas id="graficaGastos"></canvas>
+    </div>
+
+    <div class="card">
+        <h3>📈 Ingresos vs Gastos</h3>
+        <canvas id="graficaResumen"></canvas>
+    </div>
+
+    <div class="card">
+        <h3>📜 Historial</h3>
+        <ul>
+            {% for m in movimientos %}
             <li>
-                {{ m[1] }} - {{ m[2] }}: ${{ m[3] }}
+                <span>{{ m[2] }}</span>
+                <span class="{{ m[1] }}">{{ m[1] }}: ${{ m[3] }}</span>
             </li>
-        {% endfor %}
-    </ul>
-
-    <h3>📊 Distribución de Gastos</h3>
-<canvas id="graficaGastos"></canvas>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const ctx = document.getElementById('graficaGastos');
 
-    const grafica = new Chart(ctx, {
-        type: 'pie',
+<script>
+    const categorias = {{ categorias | tojson }};
+    const montos = {{ montos | tojson }};
+    const ingresos = {{ ingresos }};
+    const gastos = {{ gastos }};
+
+    new Chart(document.getElementById("graficaGastos"), {
+        type: "pie",
         data: {
-            labels: {{ gastos_labels | tojson }},
+            labels: categorias,
             datasets: [{
-                label: 'Gastos',
-                data: {{ gastos_data | tojson }},
-                borderWidth: 1
+                data: montos,
+                backgroundColor: [
+                    "#ff6384",
+                    "#36a2eb",
+                    "#ffce56",
+                    "#4bc0c0",
+                    "#9966ff",
+                    "#ff9f40"
+                ]
+            }]
+        }
+    });
+
+    new Chart(document.getElementById("graficaResumen"), {
+        type: "doughnut",
+        data: {
+            labels: ["Ingresos", "Gastos"],
+            datasets: [{
+                data: [ingresos, gastos],
+                backgroundColor: ["#4CAF50", "#ff5252"]
             }]
         }
     });
 </script>
+    
+
 
 </body>
 </html>
