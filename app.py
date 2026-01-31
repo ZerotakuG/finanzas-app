@@ -21,11 +21,23 @@ def index():
     c = conn.cursor()
     c.execute("SELECT * FROM movimientos")
     movimientos = c.fetchall()
-    conn.close()
 
+    # Calcular balance
     balance = sum(m[3] if m[1] == "ingreso" else -m[3] for m in movimientos)
 
-    return render_template("index.html", movimientos=movimientos, balance=balance)
+    # Agrupar gastos por descripción
+    gastos = {}
+    for m in movimientos:
+        if m[1] == "gasto":
+            gastos[m[2]] = gastos.get(m[2], 0) + m[3]
+
+    conn.close()
+
+    return render_template("index.html",
+                           movimientos=movimientos,
+                           balance=balance,
+                           gastos_labels=list(gastos.keys()),
+                           gastos_data=list(gastos.values()))
 
 @app.route("/agregar", methods=["POST"])
 def agregar():

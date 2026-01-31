@@ -26,5 +26,26 @@
             </li>
         {% endfor %}
     </ul>
+
+    <h3>📊 Distribución de Gastos</h3>
+<canvas id="graficaGastos"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('graficaGastos');
+
+    const grafica = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: {{ gastos_labels | tojson }},
+            datasets: [{
+                label: 'Gastos',
+                data: {{ gastos_data | tojson }},
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
+
 </body>
 </html>
